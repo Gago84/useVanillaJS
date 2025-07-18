@@ -153,11 +153,13 @@ function initialize(products) {
     // Convert the blob to an object URL — this is basically an temporary internal URL
     // that points to an object stored inside the browser
     const objectURL = URL.createObjectURL(blob);
-    // create <section>, <h2>, <p>, and <img> elements
+    // create <section>, <h2>, <p>, and <img> elements + buy button
     const section = document.createElement('section');
     const heading = document.createElement('h2');
     const para = document.createElement('p');
     const image = document.createElement('img');
+    // create buy button
+    const buyBtn = document.createElement('button');
 
     // give the <section> a classname equal to the product "type" property so it will display the correct icon
     section.setAttribute('class', product.type);
@@ -175,11 +177,31 @@ function initialize(products) {
     image.src = objectURL;
     image.alt = product.name;
 
+    // add text and class to the buy button
+    buyBtn.textContent = 'Buy';
+    buyBtn.className = 'buy-button';
+
+      // add an event listener to the buy button to log the product name when clicked
+    buyBtn.addEventListener('click', () => {
+    // Show the buy form
+    const buyForm = document.querySelector('#buyForm');
+    buyForm.style.display = 'block';
+
+    // Fill in the product name
+    const buyProductName = document.querySelector('#buyProductName');
+    buyProductName.value = product.name.charAt(0).toUpperCase() + product.name.slice(1);
+
+    // Optional: scroll into view for user focus
+    buyForm.scrollIntoView({ behavior: 'smooth' });
+    });
+
     // append the elements to the DOM as appropriate, to add the product to the UI
     main.appendChild(section);
     section.appendChild(heading);
     section.appendChild(para);
     section.appendChild(image);
+    // append the buy button to the section
+    section.appendChild(buyBtn);
   }
 }
 
