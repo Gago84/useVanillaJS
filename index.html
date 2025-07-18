@@ -65,7 +65,20 @@
                         <button type="button" id="cancelPurchaseBtn" style="background: darkred;"> Cancel </button>
                     </div>
                 </form>
-                
+                <form id="signup-container" style="display: none;">
+                    <h2>Sign Up with Phone</h2>
+                    <input type="text" id="signup-name" placeholder="Your Name" />
+                    <input type="text" id="signup-phone" placeholder="09XXXXXXXX" />
+                    <div id="recaptcha-container"></div>
+                    <button id="send-otp-btn">Send OTP</button>
+                    <button id="cancel-otp-btn">Cancel</button>
+
+                    <div id="otp-section" style="display: none; margin-top: 10px;">
+                        <input type="text" id="otp-code" placeholder="Enter OTP" />
+                        <button id="verify-otp-btn">Verify OTP</button>
+                        <button id="cancel-signup-btn">Cancel</button>
+                    </div>            
+                </form>
                 <form id="login-container" style="display: none;">
                     <h2>Log In with Phone</h2>
                     <input type="text" id="login-phone" placeholder="09XXXXXXXX" />
