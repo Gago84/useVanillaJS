@@ -188,3 +188,38 @@ function showErrorMessage(message) {
   const errorDiv = document.querySelector('.error-message');
   errorDiv.textContent = message;
 }
+
+// Handle the buy form submission
+const buyForm = document.querySelector('#buyForm');
+buyForm.addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent page reload
+
+  const productName = document.querySelector('#buyProductName').value;
+  const quantity = document.querySelector('#buyQuantity').value;
+
+  alert(`You have purchased ${quantity} x ${productName}. Thank you!`);
+
+  // Optionally hide the form after submission
+  buyForm.style.display = 'none';
+  buyForm.reset(); // Reset the form fields
+});
+
+// Handle the cancel perchase button click
+document.getElementById('cancelPurchaseBtn').addEventListener('click', () => {
+// Hide the buy form when cancel button is clicked
+  document.getElementById('buyForm').reset(); // Reset the form fields
+  document.getElementById('buyForm').style.display = 'none';
+});
+
+document.getElementById('signup-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('signup-container').style.display = 'block';
+});
+
+document.getElementById('cancel-signup-btn').addEventListener('click', () => {
+    document.getElementById('signup-container').style.display = 'none';    
+});
+
+document.getElementById('cancel-otp-btn').addEventListener('click', () => {
+  document.getElementById('signup-container').style.display = 'none';
+});
