@@ -49,6 +49,17 @@
                         <button>Filter results</button>
                     </div>
                 </form>
+                <form id="login-container" style="display: none;">
+                    <h2>Log In with Phone</h2>
+                    <input type="text" id="login-phone" placeholder="09XXXXXXXX" />
+                    <div id="recaptcha-login-container"></div>
+                    <button id="login-send-otp-btn">Send OTP</button>
+                    <div id="login-otp-section" style="display: none;">
+                        <input type="text" id="login-otp-code" placeholder="Enter OTP" />
+                        <button id="login-verify-otp-btn">Verify OTP</button>
+                        <button id="cancel-login-btn" type="button">Cancel</button>
+                    </div>
+                 </form>
             </aside>
             <main>
                 <div class="error-message"></div>
