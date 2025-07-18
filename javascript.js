@@ -1,3 +1,10 @@
+// javascript.js. This file contains the main logic for the application, including fetching products, filtering them by category and search term, and displaying them in the UI.
+// It also handles user interactions such as searching for products, displaying product details, and managing the buy form.
+// it need to import the firebase-config.js file to use Firebase services like Firestore and Auth.
+import { db, auth, RecaptchaVerifier } from './firebase-config.js';
+console.log("✅ Firebase loaded in javascript.js", db, auth);
+
+
 // use fetch to retrieve the products and pass them to init
 // report any errors that occur in the fetch operation
 // once the products have been successfully loaded and formatted as a JSON object
