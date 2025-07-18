@@ -1,14 +1,18 @@
+// use fetch to retrieve the products and pass them to init
+// report any errors that occur in the fetch operation
+// once the products have been successfully loaded and formatted as a JSON object
+// using response.json(), run the initialize() function
 
-const url1 = 'https://raw.githubusercontent.com/mdn/learning-area/main/javascript/apis/fetching-data/can-store/products.json';
+const url1='https://raw.githubusercontent.com/mdn/learning-area/main/javascript/apis/fetching-data/can-store/products.json';
 
 fetch(url1)
-  .then(response => {
+  .then( response => {
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`);
     }
     return response.json();
   })
-  .then(json => initialize(json))
+  .then( json => initialize(json) )
   .catch(err => {
     console.error(`Fetch problem: ${err.message}`);
     //Add show error message here to show on user's creeen
@@ -71,16 +75,16 @@ function initialize(products) {
       if (category.value === 'All') {
         categoryGroup = products;
         selectProducts();
-        // If a specific category is chosen, we need to filter out the products not in that
-        // category, then put the remaining products inside categoryGroup, before running
-        // selectProducts()
+      // If a specific category is chosen, we need to filter out the products not in that
+      // category, then put the remaining products inside categoryGroup, before running
+      // selectProducts()
       } else {
         // the values in the <option> elements are uppercase, whereas the categories
         // store in the JSON (under "type") are lowercase. We therefore need to convert
         // to lower case before we do a comparison
         const lowerCaseType = category.value.toLowerCase();
         // Filter categoryGroup to contain only products whose type includes the category
-        categoryGroup = products.filter(product => product.type === lowerCaseType);
+        categoryGroup = products.filter( product => product.type === lowerCaseType );
         // Run selectProducts() after the filtering has been done
         selectProducts();
       }
@@ -99,7 +103,7 @@ function initialize(products) {
       // product names all lower case to keep things simple
       const lowerCaseSearchTerm = searchTerm.value.trim().toLowerCase();
       // Filter finalGroup to contain only products whose name includes the search term
-      finalGroup = categoryGroup.filter(product => product.name.includes(lowerCaseSearchTerm));
+      finalGroup = categoryGroup.filter( product => product.name.includes(lowerCaseSearchTerm));
     }
     // Once we have the final group, update the display
     updateDisplay();
@@ -117,7 +121,7 @@ function initialize(products) {
       const para = document.createElement('p');
       para.textContent = 'No results to display!';
       main.appendChild(para);
-      // for each product we want to display, pass its product object to fetchBlob()
+    // for each product we want to display, pass its product object to fetchBlob()
     } else {
       for (const product of finalGroup) {
         fetchBlob(product);
@@ -134,14 +138,14 @@ function initialize(products) {
     // Use fetch to fetch the image, and convert the resulting response to a blob
     // Again, if any errors occur we report them in the console.
     fetch(url)
-      .then(response => {
+      .then( response => {
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
         return response.blob();
       })
-      .then(blob => showProduct(blob, product))
-      .catch(err => console.error(`Fetch problem: ${err.message}`));
+      .then( blob => showProduct(blob, product) )
+      .catch( err => console.error(`Fetch problem: ${err.message}`) );
   }
 
   // Display a product inside the <main> element
@@ -154,8 +158,6 @@ function initialize(products) {
     const heading = document.createElement('h2');
     const para = document.createElement('p');
     const image = document.createElement('img');
-    // create buy button
-    const buyBtn = document.createElement('button');
 
     // give the <section> a classname equal to the product "type" property so it will display the correct icon
     section.setAttribute('class', product.type);
@@ -173,31 +175,11 @@ function initialize(products) {
     image.src = objectURL;
     image.alt = product.name;
 
-    // add text and class to the buy button
-    buyBtn.textContent = 'Buy';
-    buyBtn.className = 'buy-button';
-
-    // add an event listener to the buy button to log the product name when clicked
-    buyBtn.addEventListener('click', () => {
-      // Show the buy form
-      const buyForm = document.querySelector('#buyForm');
-      buyForm.style.display = 'block';
-
-      // Fill in the product name
-      const buyProductName = document.querySelector('#buyProductName');
-      buyProductName.value = product.name.charAt(0).toUpperCase() + product.name.slice(1);
-
-      // Optional: scroll into view for user focus
-      buyForm.scrollIntoView({ behavior: 'smooth' });
-    });
-
     // append the elements to the DOM as appropriate, to add the product to the UI
     main.appendChild(section);
     section.appendChild(heading);
     section.appendChild(para);
     section.appendChild(image);
-    // append the buy button to the section
-    section.appendChild(buyBtn);
   }
 }
 
@@ -206,38 +188,3 @@ function showErrorMessage(message) {
   const errorDiv = document.querySelector('.error-message');
   errorDiv.textContent = message;
 }
-
-// Handle the buy form submission
-const buyForm = document.querySelector('#buyForm');
-buyForm.addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent page reload
-
-  const productName = document.querySelector('#buyProductName').value;
-  const quantity = document.querySelector('#buyQuantity').value;
-
-  alert(`You have purchased ${quantity} x ${productName}. Thank you!`);
-
-  // Optionally hide the form after submission
-  buyForm.style.display = 'none';
-  buyForm.reset(); // Reset the form fields
-});
-
-// Handle the cancel perchase button click
-document.getElementById('cancelPurchaseBtn').addEventListener('click', () => {
-// Hide the buy form when cancel button is clicked
-  document.getElementById('buyForm').reset(); // Reset the form fields
-  document.getElementById('buyForm').style.display = 'none';
-});
-
-document.getElementById('signup-link').addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('signup-container').style.display = 'block';
-});
-
-document.getElementById('cancel-signup-btn').addEventListener('click', () => {
-    document.getElementById('signup-container').style.display = 'none';    
-});
-
-document.getElementById('cancel-otp-btn').addEventListener('click', () => {
-  document.getElementById('signup-container').style.display = 'none';
-});
